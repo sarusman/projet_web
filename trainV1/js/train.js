@@ -124,9 +124,7 @@ class Plateau{
 			}
 		}
 	}
-
-	// NOTE: à compléter…
-
+	
 }
 
 
@@ -152,11 +150,12 @@ function image_of_case(type_de_case){
 function dessine_case(contexte, plateau, x, y){
 	const la_case = plateau.cases[x][y];
 
-	// NOTE: à améliorer
-
-	let image_a_afficher = image_of_case(la_case);
-	// Affiche l'image concernée
-	contexte.drawImage(image_a_afficher, x * LARGEUR_CASE, y * HAUTEUR_CASE, LARGEUR_CASE, HAUTEUR_CASE);
+    if (la_case===Type_de_case.Rail_horizontal || la_case===Type_de_case.Rail_vertical || la_case===Type_de_case.Rail_droite_vers_haut ||la_case===Type_de_case.Rail_haut_vers_droite ||la_case===Type_de_case.Rail_droite_vers_bas ||la_case===Type_de_case.Rail_bas_vers_droite ) {
+        contexte.fillStyle='gray';
+        contexte.fillRect(x*LARGEUR_CASE, y*HAUTEUR_CASE, LARGEUR_CASE, HAUTEUR_CASE);
+    }
+	let image_a_afficher=image_of_case(la_case);
+	contexte.drawImage(image_a_afficher, x*LARGEUR_CASE, y*HAUTEUR_CASE, LARGEUR_CASE, HAUTEUR_CASE);
 }
 
 function dessine_plateau(page, plateau){
@@ -288,19 +287,61 @@ function cree_plateau_initial(plateau){
 // Fonction principale
 /************************************************************/
 
+let caseSelect=null;
+
+
+function initPlateau(plateau, contexte) {
+  const simu=document.getElementById('simulateur');
+  simu.addEventListener('click', function(event) {
+    const rect = simu.getBoundingClientRect();
+    const x =event.clientX-rect.left;
+    const y =event.clientY-rect.top;
+
+    const caseX = Math.floor(x/LARGEUR_CASE);
+    const caseY = Math.floor(y/HAUTEUR_CASE);
+    if (caseSelect !== null) {
+      plateau.cases[caseX][caseY]=caseSelect;
+      dessine_case(contexte, plateau, caseX, caseY);
+    }
+  });
+}
+
+function majBTN(bouton) {
+  document.querySelectorAll('button').forEach(btn => {
+    btn.disabled=false;
+  });
+  bouton.disabled=true;
+}
+
+function add_btn(nom, typecase){
+	document.getElementById(nom).addEventListener('click', function() {
+		caseSelect=typecase;
+		majBTN(this);
+	});
+}
+
 function tchou(){
 	console.log("Tchou, attention au départ !");
 	/*------------------------------------------------------------*/
-	// Variables DOM
-	/*------------------------------------------------------------*/
 	const contexte = document.getElementById('simulateur').getContext("2d");
+	/*------------------------------------------------------------*/
+
+	add_btn('bouton_foret', Type_de_case.Foret);
+	add_btn('bouton_eau', Type_de_case.Eau);
+	add_btn('bouton_rail_horizontal', Type_de_case.Rail_horizontal);
+	add_btn('bouton_rail_vertical', Type_de_case.Rail_vertical);
+	add_btn('bouton_rail_droite_vers_haut', Type_de_case.Rail_droite_vers_haut);
+	add_btn('bouton_rail_haut_vers_droite', Type_de_case.Rail_haut_vers_droite);
+	add_btn('bouton_rail_droite_vers_bas', Type_de_case.Rail_droite_vers_bas);
+	add_btn('bouton_rail_bas_vers_droite', Type_de_case.Rail_bas_vers_droite);
+
 
 	// NOTE: ce qui suit est sûrement à réécrire intégralement
 
 	// Création du plateau
 	let plateau = new Plateau();
 	cree_plateau_initial(plateau);
-
+	initPlateau(plateau, contexte);
 	// Dessine le plateau
 	dessine_plateau(contexte, plateau);
 
