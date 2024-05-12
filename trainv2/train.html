@@ -1,0 +1,74 @@
+<!--
+	Train
+	@author       : Étienne André
+	Created       : 2023/12/11
+	Last modified : 2024/03/28
+-->
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>Simulateur de trains</title>
+		<link rel="stylesheet" href="css/train.css">
+	</head>
+
+	<body>
+		<h1>Simulateur de trains</h1>
+		<div id="container">
+		    <select id="mondeSelect">
+		        <option value="Monde Glacial">Monde Glacial</option>
+		        <option value="Monde Mystérieux">Monde Mystérieux</option>
+		        <option value="Monde Loop">Monde Loop</option>
+		        <option value="Monde Désertique">Monde Désertique</option>
+		    </select>
+	    	<button id="loadButton">Charger le Monde</button>
+	    	<p>Actualiser la page avant de charger un monde</p>
+		</div>
+	    <canvas id="simulateur" width="1500" height="700">
+	        Simulateur (votre navigateur ne prend pas en charge canvas)
+	    </canvas>
+		<p>Ajouts : </p>
+		<div id="boutons">
+	        <img src="images/foret5.png" alt="Foret" id="bouton_foret">
+	        <img src="images/mer.png" alt="Eau" id="bouton_eau">
+	        <img src="images/rail-horizontal.png" alt="Rail Horizontal" id="bouton_rail_horizontal">
+	        <img src="images/rail-vertical.png" alt="Rail Vertical" id="bouton_rail_vertical">
+	        <img src="images/rail-droite-vers-bas.png" alt="Rail Droite Vers Bas" id="bouton_rail_droite_vers_bas">
+	        <img src="images/rail-droite-vers-haut.png" alt="Rail Droite Vers Haut" id="bouton_rail_droite_vers_haut">
+	        <img src="images/rail-haut-vers-droite.png" alt="Rail Haut Vers Droite" id="bouton_rail_haut_vers_droite">
+	        <img src="images/rail-bas-vers-droite.png" alt="Rail Bas Vers Droite" id="bouton_rail_bas_vers_droite">
+	        <!-- Ajoutez le reste des images pour les autres boutons -->
+	        <img src="images/locomotive.png" alt="Train 1" id="bouton_train_1">
+	        <img src="images/train_2.png" alt="Train 2" id="bouton_train_2">
+	        <img src="images/train_4.png" alt="Train 4" id="bouton_train_4">
+	        <img src="images/train_6.png" alt="Train 6" id="bouton_train_6">
+	        <img src="images/pause.png" alt="Pause" id="bouton_pause">
+
+		</div>
+
+		<div>
+			<p>Vitesse des trains: </p>
+   		 <input type="range" min="0" max="1000" value="500" class="slider" id="vitesseRange">
+    	 <p>Vitesse : <span id="vitesseValeur"></span> ms</p>
+		</div>
+
+
+		 <!-- Ajout des balises audio -->
+	    <audio id="tchou">
+	        <source src="sons/sncf.mp3" type="audio/mpeg">
+	    </audio>
+	    <audio id="crissement-roues">
+	        <source src="sons/crissement.mp3" type="audio/mpeg">
+	    </audio>
+	    <audio id="explosion">
+	        <source src="sons/explosion.mp3" type="audio/mpeg">
+	    </audio>
+	    <audio id="intro">
+	        <source src="sons/intro.mp3" type="audio/mpeg">
+	    </audio>
+	    <audio id="haute_vitesse">
+	        <source src="sons/haute_vitesse.mp3" type="audio/mpeg">
+	    </audio>
+		<script src="js/train.js"></script>
+	</body>
+</html>
