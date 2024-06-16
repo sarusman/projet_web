@@ -46,10 +46,3 @@
 
 	Sources des sons:
 		- https://lasonotheque.org
-
-	Maps:
-		- Aide de ChatGPT model 4
-
-	Code de la partie 2:
-		- Aide de ChatGPT model 4 et 3.5
-		- Certaines fonctionnalités sont entièrement générées par ces modèles
